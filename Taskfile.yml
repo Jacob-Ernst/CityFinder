@@ -1,0 +1,122 @@
+# https://taskfile.dev
+
+version: '3'
+
+dotenv: ['.env']
+
+vars:
+  JOBS:
+    sh: echo $(nproc)/2 | bc
+
+tasks:
+  build:env:
+    desc: Generate ".env" from example env
+    cmds:
+      - cat .env.example | sed -e 's/^# .*//' > .env
+      - sed -i "" '/^[[:space:]]*$$/d' .env
+    sources:
+      - .env.example
+    generates:
+      - .env
+
+  bundle:install:
+    desc: Install Ruby dependencies
+    run: once
+    cmds:
+      - docker compose run --rm runner bundle install --jobs {{.JOBS}}
+    sources:
+      - Gemfile
+      - Gemfile.lock
+    status:
+      - docker compose run --rm runner bundle check
+
+  clean:
+    desc: Remove PID file if it exists
+    cmds:
+      - rm -f tmp/pids/server.pid
+
+  db:drop:
+    desc: Drop local DB
+    deps: [docker:setup]
+    cmds:
+      - docker compose run --rm runner bundle exec rake db:drop
+
+  db:migrate:
+    desc: Migrate local
+    deps: [docker:setup]
+    cmds:
+      - docker compose run --rm runner bundle exec rake db:migrate
+
+  db:rebuild:
+    desc: Drop and then rebuild local DB
+    deps: [docker:setup]
+    cmds:
+      - task: db:drop
+      - task: db:setup
+
+  db:setup:
+    desc: Create and setup local DB
+    deps: [dev:setup]
+    cmds:
+      - docker compose run --rm runner bundle exec rake db:create db:schema:load
+      - docker compose run --rm runner bundle exec rake db:seed
+      - docker compose run --rm runner bundle exec rake db:populate
+
+  debug:api:
+    desc: Launch services and attach to server for debugging
+    deps: [clean]
+    cmds:
+      - docker compose up -d api
+      - docker attach $(docker-compose ps -q api)
+
+  dev:setup:
+    desc: Setup and install for local dev
+    deps: [docker:setup]
+    run: once
+    cmds:
+      - task: bundle:install
+
+  docker:run:
+    desc: Run the given command in Docker
+    deps: [docker:setup]
+    cmds:
+      - docker compose run --rm runner {{.CLI_ARGS}}
+
+  docker:setup:
+    desc: Build Docker resources
+    cmds:
+      - docker compose build app
+    status:
+      - docker inspect --type=image cityfinder-server:latest >/dev/null 2>&1
+    sources:
+      - Dockerfile
+      - docker-compose.yml
+      - .dockerignore
+
+  rspec:
+    desc: Run RSpec tests
+    cmds:
+      - docker compose run --rm runner bundle exec rspec
+
+  start:
+    desc: Start local development server
+    deps: [clean]
+    cmds:
+      - docker compose up api
+
+  stop:
+    desc: Stop local development server
+    cmds:
+      - docker compose stop
+      - task: clean
+
+  yard:
+    desc: Generate YARD documentation
+    deps: [yard:clean]
+    cmds:
+      - docker compose run --rm runner bundle exec yardoc
+
+  yard:clean:
+    desc: Remove YARD files
+    cmds:
+      - rm -rf .yardoc doc

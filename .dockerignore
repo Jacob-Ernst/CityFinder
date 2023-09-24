@@ -1,0 +1,20 @@
+.git/*
+.gitignore
+README.md
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.dockerignore
+Dockerfile
+node_modules/*
+log/*
+docker-compose.yml
+
+# Rails
+.env
+coverage/
+.bundle
+.ruby-version
+.vscode
