@@ -30,11 +30,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Jacob-Ernst/CityFinder">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-<h3 align="center">CityFinder</h3>
+  <h3 align="center">CityFinder</h3>
 
   <p align="center">
     Find info about the city nearest to you.
@@ -68,16 +64,12 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 Ruby on Rails API project for finding information for the city closest to the user-provided location.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
@@ -86,48 +78,68 @@ Ruby on Rails API project for finding information for the city closest to the us
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get started, make sure that you have the [Prerequisites](#prerequisites) installed.
+Then follow the directions under [Installation](#installation).
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- [Docker](https://docs.docker.com/engine/install/)
+- [Task (available in Homebrew as "go-task")](https://taskfile.dev/installation/)
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/Jacob-Ernst/CityFinder.git
    ```
-3. Install NPM packages
+2. Create a copy of `.env.example`
    ```sh
-   npm install
+   task build:env
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Copy working ENV variables into `.env`
+4. Setup Docker and install Bundler dependencies
+   ```sh
+   task dev:setup
    ```
+5. Create, migrate, and seed local database
+   ```sh
+   task db:setup
+   ```
+6. Run the API to see if everything is working
+   ```sh
+   task start
+   ```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+To run the project for local development run the following:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+```shell
+task start
+```
+
+The server should now be accessible by visiting: [http://localhost/](http://localhost/).
+
+To stop the project run the following:
+
+```sh
+task stop
+```
+
+### Testing
+
+We use RSpec for unit testing. To run the test suite for this project run the following:
+
+```sh
+task rspec
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
