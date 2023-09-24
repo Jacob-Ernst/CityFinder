@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RUBY_VERSION: '3.1.0'
+        BUNDLER_VERSION: '2.4.19'
+        RUBYGEMS_VERSION: '3.4.19'
+    env_file:
+      - .env
+    image: cityfinder-server:latest
+    tmpfs:
+      - /tmp
+
+  backend: &backend
+    <<: *app
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app:cached
+      - rails_cache:/app/tmp/cache
+      - bundle:/bundle
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432
+      - BOOTSNAP_CACHE_DIR=/bundle/bootsnap
+      - WEB_CONCURRENCY=0
+      - HISTFILE=/app/log/.bash_history
+      - DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL=true
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgres
+
+  runner:
+    <<: *backend
+    command: /bin/bash
+    ports:
+      - '3000:3000'
+
+  api:
+    <<: *backend
+    command: ./bin/dev
+    ports:
+      - '80:3000'
+      - '443:3000'
+
+  postgres:
+    image: postgres:${PG_MAJOR:-15}-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  postgres:
+  bundle:
+  rails_cache:
