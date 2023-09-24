@@ -1,0 +1,3 @@
+-q --no-cache --protected --no-private --charset utf-8 \
+--exclude lib/generators --exclude lib/tasks --tag internal --hide-tag internal \
+- app/**/*.md
