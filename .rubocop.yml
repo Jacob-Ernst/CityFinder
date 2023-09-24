@@ -1,0 +1,209 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+inherit_mode:
+  merge:
+    - Exclude
+AllCops:
+  Exclude:
+    - '**/schema.rb'
+    - 'db/migrate/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'lib/generators/**/templates/*'
+    - 'bin/**/*'
+    - 'config.ru'
+    - 'Rakefile'
+    - 'config/boot.rb'
+  ExtraDetails: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 3.1
+  NewCops: enable
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_line
+Layout/EmptyLines:
+  Enabled: true
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+Layout/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: true
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+Layout/LineLength:
+  Max: 120
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+Lint/DuplicateElsifCondition:
+  Enabled: true
+Lint/EmptyClass:
+  Enabled: true
+  AllowComments: true
+Lint/MissingSuper:
+  Enabled: true
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Metrics/AbcSize:
+  Max: 36
+Metrics/BlockLength:
+  Max: 497
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Max: 7
+Metrics/MethodLength:
+  Max: 28
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Max: 8
+Naming/MethodName:
+  EnforcedStyle: snake_case
+Naming/PredicateName:
+  AllowedMethods:
+    - 'is_a?'
+Naming/VariableName:
+  EnforcedStyle: snake_case
+Naming/VariableNumber:
+  AllowedIdentifiers:
+    - 'iso8601'
+    - 'rfc1123_date'
+    - 'rfc822'
+    - 'rfc2822'
+    - 'rfc3339'
+Performance/AncestorsInclude:
+  Enabled: false
+Performance/BigDecimalWithNumericArgument:
+  Enabled: true
+Rails/I18nLocaleTexts:
+  Enabled: false
+Performance/RedundantSortBlock:
+  Enabled: true
+Performance/RedundantStringChars:
+  Enabled: true
+Performance/ReverseFirst:
+  Enabled: true
+Performance/SortReverse:
+  Enabled: true
+Performance/Squeeze:
+  Enabled: true
+Performance/StringInclude:
+  Enabled: true
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/FilePath:
+  EnforcedStyle: slashes
+Rails/FindById:
+  Enabled: true
+Rails/Inquiry:
+  Enabled: true
+Rails/MailerName:
+  Enabled: true
+Rails/MatchRoute:
+  Enabled: true
+Rails/NegateInclude:
+  Enabled: true
+Rails/Pluck:
+  Enabled: true
+Rails/PluckId:
+  Enabled: false
+Rails/PluckInWhere:
+  Enabled: false
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+Rails/RenderInline:
+  Enabled: true
+Rails/RenderPlainText:
+  Enabled: true
+Rails/ShortI18n:
+  Enabled: true
+Rails/WhereExists:
+  Enabled: false
+RSpec/ExampleLength:
+  Max: 12
+RSpec/FilePath:
+  Enabled: false
+RSpec/ImplicitSubject:
+  EnforcedStyle: single_statement_only
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+RSpec/MultipleExpectations:
+  Max: 6
+RSpec/MultipleMemoizedHelpers:
+  Max: 7
+Style/AccessorGrouping:
+  Enabled: true
+Style/ArrayCoercion:
+  Enabled: true
+Style/BisectedAttrAccessor:
+  Enabled: true
+Style/CaseLikeIf:
+  Enabled: true
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/ExponentialNotation:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - 'config/**/*'
+    - 'lib/generators/**/*'
+    - 'Gemfile'
+Style/GuardClause:
+  Enabled: false
+Style/HashAsLastArrayItem:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: false
+Style/HashLikeCase:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: false
+Style/HashTransformValues:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/NumericLiterals:
+  MinDigits: 15
+Style/RedundantAssignment:
+  Enabled: true
+Style/RedundantConstantBase:
+  Enabled: false
+Style/RedundantFetchBlock:
+  Enabled: true
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+Style/RedundantRegexpEscape:
+  Enabled: true
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_perl_names
+Style/SlicingWithRange:
+  Enabled: false
