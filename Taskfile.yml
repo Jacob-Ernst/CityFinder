@@ -60,7 +60,6 @@ tasks:
     cmds:
       - docker compose run --rm runner bundle exec rake db:create db:schema:load
       - docker compose run --rm runner bundle exec rake db:seed
-      - docker compose run --rm runner bundle exec rake db:populate
 
   debug:api:
     desc: Launch services and attach to server for debugging
