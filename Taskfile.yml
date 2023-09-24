@@ -109,6 +109,21 @@ tasks:
       - docker compose stop
       - task: clean
 
+  time:start:
+    desc: Start time tracking via timewarrior
+    cmds:
+      - timew start $TIME_WARRIOR_TAGS
+
+  time:stop:
+    desc: Start time tracking via timewarrior
+    cmds:
+      - timew stop
+
+  time:summary:
+    desc: Summary of time tracked via timewarrior
+    cmds:
+      - timew summary $TIME_WARRIOR_TAGS
+
   yard:
     desc: Generate YARD documentation
     deps: [yard:clean]
