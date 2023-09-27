@@ -122,7 +122,7 @@ tasks:
   time:summary:
     desc: Summary of time tracked via timewarrior
     cmds:
-      - timew summary $TIME_WARRIOR_TAGS
+      - timew summary :all $TIME_WARRIOR_TAGS
 
   yard:
     desc: Generate YARD documentation
