@@ -25,3 +25,16 @@ Geocoder::Lookup::Test.add_stub(
     }
   ]
 )
+
+Geocoder::Lookup::Test.add_stub(
+  'San Marcos, TX, USA', [
+    {
+      'coordinates'  => [29.8832749, -97.9413941],
+      'address'      => 'San Marcos, TX, USA',
+      'state'        => 'Texas',
+      'state_code'   => 'TX',
+      'country'      => 'United States',
+      'country_code' => 'US'
+    }
+  ]
+)
