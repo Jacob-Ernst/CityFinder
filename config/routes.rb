@@ -3,4 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  namespace('api') do
+    namespace('v1') do
+      scope controller: 'cities', path: 'cities' do
+        post 'nearest', action: 'nearest', as: 'nearest_city'
+      end
+    end
+  end
 end
