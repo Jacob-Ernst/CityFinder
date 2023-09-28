@@ -2,6 +2,7 @@
 
 class Api::V1::CitiesController < ApplicationController
   before_action :check_coordinates
+  rescue_from ActionController::ParameterMissing, with: :params_error
 
   # @note GET /api/v1/cities/nearest
   def nearest
@@ -38,5 +39,14 @@ class Api::V1::CitiesController < ApplicationController
 
   def nearest_params
     params.require(:search)
+  end
+
+  def params_error
+    render(
+      json: {
+        error: 'The "search" param is required but it was not provided'
+      },
+      status: :unprocessable_entity
+    )
   end
 end
