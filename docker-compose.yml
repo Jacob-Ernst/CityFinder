@@ -27,6 +27,7 @@ services:
       - NODE_ENV=development
       - RAILS_ENV=${RAILS_ENV:-development}
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432
+      - REDIS_CACHE_URL=redis://redis:6379/
       - BOOTSNAP_CACHE_DIR=/bundle/bootsnap
       - WEB_CONCURRENCY=0
       - HISTFILE=/app/log/.bash_history
@@ -35,6 +36,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - postgres
+      - redis
 
   runner:
     <<: *backend
@@ -59,7 +61,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  redis:
+    image: redis:5.0.5-alpine
+    volumes:
+      - redis:/data
+    ports:
+      - 6379
+
 volumes:
   postgres:
+  redis:
   bundle:
   rails_cache:

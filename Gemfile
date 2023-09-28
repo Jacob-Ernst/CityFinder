@@ -35,6 +35,7 @@ gem 'bootsnap', require: false
 
 gem 'geocoder', '~> 1.8'
 gem 'oj', '~> 3.16'
+gem 'redis', '~> 5.0'
 gem 'yard', '~> 0.9.16'
 
 group :development, :test do
