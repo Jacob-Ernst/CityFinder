@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 # Responsible for allowing automatic cache expiration after a day.
-# This could be extended as needed.
+# @note This could be extended as needed.
+# @note I am not well versed in IP law, but there may be some legal implications
+#   for caching data from the Google API.
 class AutoexpireCacheRedis
   def initialize(store, ttl = 86400)
     @store = store
