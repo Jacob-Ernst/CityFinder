@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       scope controller: 'cities', path: 'cities' do
         post 'nearest', action: 'nearest', as: 'nearest_city'
       end
+      match '*path', to: 'not_found#not_found', via: :all
     end
   end
 end
