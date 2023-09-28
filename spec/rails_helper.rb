@@ -40,6 +40,13 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.define_derived_metadata(file_path: %r{/spec/.+_spec\.rb}) do |metadata|
+    location = metadata[:location]
+    metadata[:api] = true if location.include?('/spec/requests/')
+  end
+
+  config.include ApiHelpers, :api
+
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 

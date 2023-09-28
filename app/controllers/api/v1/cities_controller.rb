@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+# Return city data for the nearest city from the given "search" param.
 class Api::V1::CitiesController < ApplicationController
   before_action :check_coordinates
   rescue_from ActionController::ParameterMissing, with: :params_error
 
-  # @note GET /api/v1/cities/nearest
+  # @note POST /api/v1/cities/nearest
   def nearest
     if city
       render json: city.as_json, status: :ok
