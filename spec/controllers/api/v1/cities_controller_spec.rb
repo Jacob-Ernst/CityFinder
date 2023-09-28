@@ -21,7 +21,7 @@ RSpec.describe Api::V1::CitiesController do
     end
 
     context 'when no city in range' do
-      it 'returns unprocessable_entity with error', :aggregate_failures do
+      it 'returns not_found with error', :aggregate_failures do
         post(
           :nearest,
           params: { search: 'Austin, Texas, United States' },
@@ -30,6 +30,16 @@ RSpec.describe Api::V1::CitiesController do
         expect(response).to have_http_status(:not_found)
         expect(json['error']).to eq(
           'No matching city within 50 miles of your search'
+        )
+      end
+    end
+
+    context 'when no search param given' do
+      it 'returns unprocessable_entity with error', :aggregate_failures do
+        post(:nearest, params: {}, xhr: true)
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json['error']).to eq(
+          'The "search" param is required but it was not provided'
         )
       end
     end
