@@ -30,6 +30,16 @@ class Api::V1::CitiesController < ApplicationController
     end
   end
 
+  # Using a fixed distance of 50 miles for now.
+  # In the future we could accept a `distance` param and validate that it does
+  # not exceed a certain threshold.
+  # PROS
+  # - predictable API responses which allow for easier testing.
+  # - fixed distances are good in many business scenarios, i.e. finding a City for a day trip.
+  # - prevents retrieving too many DB results at once
+  # CONS
+  # - may seem opaque or arbitrary to the user
+  # - may not account for all use cases
   def city
     @city ||= City.near(coordinates, 50).first
   end

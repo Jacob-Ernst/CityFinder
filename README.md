@@ -127,6 +127,9 @@ task start
 
 The server should now be accessible by visiting: [http://localhost/](http://localhost/).
 
+To find city data, you can make POST requests to [http://localhost/api/v1/cities/nearest](http://localhost/api/v1/cities/nearest).
+Use the `nearest` param to provide an address, a city, a state, or a zip code.
+
 To stop the project run the following:
 
 ```sh
