@@ -3,6 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe City do
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :state }
+    it do
+      is_expected.to validate_numericality_of(:lat).allow_nil
+    end
+    it do
+      is_expected.to validate_numericality_of(:lng).allow_nil
+    end
+    it do
+      is_expected.to validate_numericality_of(:population).allow_nil
+    end
+  end
+
   describe 'after_validation' do
     context 'when creating new city and coordinates present' do
       subject(:city) do
